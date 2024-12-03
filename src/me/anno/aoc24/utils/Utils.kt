@@ -4,13 +4,21 @@ import java.io.InputStream
 
 object Utils {
 
-    fun getStream(day: Int, name: String): InputStream {
+    private fun openStream(day: Int, name: String): InputStream {
         return Utils::class.java.classLoader
-            .getResourceAsStream("./$day/$name")!!
+            .getResourceAsStream("./day$day/$name")!!
     }
 
-    fun getLines(day: Int, name: String): List<String> {
-        return getStream(day, name).bufferedReader().readLines()
+    fun readText(day: Int, name: String): String {
+        return openStream(day, name).use { stream ->
+            stream.bufferedReader().readText()
+        }
+    }
+
+    fun readLines(day: Int, name: String): List<String> {
+        return openStream(day, name).use { stream ->
+            stream.bufferedReader().readLines()
+        }
     }
 
 }
