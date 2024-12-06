@@ -1,6 +1,6 @@
 package me.anno.aoc24.day2
 
-import me.anno.aoc24.utils.Utils.readLines
+import me.anno.utils.Utils.readLines
 
 fun isReportSafe(list: List<Int>): Boolean {
     return isReportSafeOneWay(list) || isReportSafeOneWay(list.reversed())
@@ -18,7 +18,7 @@ fun isReportSafeOneWay(list: List<Int>, start: Int = 1): Boolean {
 }
 
 fun main() {
-    val lines = readLines(2, "data.txt")
+    val lines = readLines(24, 2, "data.txt")
     val reports = lines
         .filter { it.isNotBlank() }
         .map { line -> line.split(' ').map { it.toInt() } }

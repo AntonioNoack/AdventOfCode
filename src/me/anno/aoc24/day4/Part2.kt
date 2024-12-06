@@ -1,12 +1,12 @@
 package me.anno.aoc24.day4
 
-import me.anno.aoc24.utils.Utils.readLines
+import me.anno.utils.Utils.readLines
 
 /**
  * find all cross-MAS
  * */
 fun main() {
-    val lines = readLines(4, "data.txt")
+    val lines = readLines(24, 4, "data.txt")
     val sx = lines[0].length
     val sy = lines.size
     var sum = 0

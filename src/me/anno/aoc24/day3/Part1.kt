@@ -1,13 +1,13 @@
 package me.anno.aoc24.day3
 
-import me.anno.aoc24.utils.Utils.readText
+import me.anno.utils.Utils.readText
 
 fun main() {
     // find all multiplications and add them up
     val prefix = "mul("
     val mid = ","
     val suffix = ")"
-    val input = readText(3, "data.txt")
+    val input = readText(24, 3, "data.txt")
     var i = 0
     var sum = 0
     while (true) {

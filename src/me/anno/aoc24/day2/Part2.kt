@@ -1,6 +1,6 @@
 package me.anno.aoc24.day2
 
-import me.anno.aoc24.utils.Utils.readLines
+import me.anno.utils.Utils.readLines
 
 fun isReportSafeDampener(list: List<Int>): Boolean {
     return isReportSafeDampenerOneWay(list) || isReportSafeDampenerOneWay(list.reversed())
@@ -34,7 +34,7 @@ fun isReportSafeDampenerOneWay(list: List<Int>): Boolean {
 }
 
 fun main() {
-    val lines = readLines(2, "data.txt")
+    val lines = readLines(24, 2, "data.txt")
     val reports = lines
         .filter { it.isNotBlank() }
         .map { line -> line.split(' ').map { it.toInt() } }

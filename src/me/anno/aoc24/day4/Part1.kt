@@ -1,14 +1,12 @@
 package me.anno.aoc24.day4
 
-import me.anno.aoc24.utils.Utils.readLines
-
-
-val searched = "XMAS"
+import me.anno.utils.Utils.readLines
 
 fun search(
     lines: List<String>,
     fx: Int, fy: Int,
 ): Int {
+    val searched = "XMAS"
     val sx = lines[0].length
     val sy = lines.size
     var total = 0
@@ -40,7 +38,7 @@ fun search(
  *  - reversed, horizontal, vertical, diagonal
  * */
 fun main() {
-    val lines = readLines(4, "data.txt")
+    val lines = readLines(24, 4, "data.txt")
     val sum = search(lines, +1, 0) + search(lines, -1, 0) +
             search(lines, 0, +1) + search(lines, 0, -1) +
             search(lines, +1, +1) + search(lines, -1, +1) +
