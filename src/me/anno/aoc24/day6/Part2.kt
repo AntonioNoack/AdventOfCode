@@ -4,22 +4,22 @@ import me.anno.utils.Utils.readLines
 
 data class Step(val ax: Int, val ay: Int, val dir: Int)
 
-fun getObstaclePosition(field: Field, step: Step): Position? {
+fun getObstaclePosition(field: Field, step: Step): Vector2i? {
     // if the obstacle is < stepIdx, return false
     val obstacleDir = directions[step.dir]
     val ox = step.ax + obstacleDir.first
     val oy = step.ay + obstacleDir.second
     return if (ox in 0 until field.sx && oy in 0 until field.sy) {
-        Position(ox, oy)
+        Vector2i(ox, oy)
     } else null
 }
 
 object DoNothingWatcher : Watcher
 
-fun isLoopIfPlaced(field: Field, obstaclePos: Position): Boolean {
-    field.lines[obstaclePos.ay][obstaclePos.ax] = obstacle
+fun isLoopIfPlaced(field: Field, obstaclePos: Vector2i): Boolean {
+    field.lines[obstaclePos.y][obstaclePos.x] = obstacle
     val foundExit = walkGuard(field, DoNothingWatcher)
-    field.lines[obstaclePos.ay][obstaclePos.ax] = empty // reset field
+    field.lines[obstaclePos.y][obstaclePos.x] = empty // reset field
     return !foundExit
 }
 
@@ -42,7 +42,7 @@ fun main() {
     val steps = findTakenSteps(field)
     val possibleObstacles = steps
         .mapNotNull { step -> getObstaclePosition(field, step) }
-        .filter { obstacle -> field.lines[obstacle.ay][obstacle.ax] == empty } // must be neither blockade nor start
+        .filter { obstacle -> field.lines[obstacle.y][obstacle.x] == empty } // must be neither blockade nor start
         .distinct()
 
     val validObstacles =

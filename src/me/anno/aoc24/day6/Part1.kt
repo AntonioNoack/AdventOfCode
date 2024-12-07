@@ -13,10 +13,10 @@ val directions = listOf(
 val obstacle = '#'
 val empty = '.'
 
-fun findAgentPosition(lines: List<String>): Position {
+fun findAgentPosition(lines: List<String>): Vector2i {
     return lines.mapIndexed { y, line ->
         val x = line.indexOf('^')
-        if (x >= 0) Position(x, y) else null
+        if (x >= 0) Vector2i(x, y) else null
     }.first { it != null }!!
 }
 
@@ -84,7 +84,7 @@ fun main() {
 
     // solution with Part2:
     val reachedTiles = findTakenSteps(field)
-        .map { Position(it.ax, it.ay) }
+        .map { Vector2i(it.ax, it.ay) }
         .distinct().size
     println(reachedTiles)
 }
