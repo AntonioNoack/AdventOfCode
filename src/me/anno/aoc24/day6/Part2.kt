@@ -1,6 +1,7 @@
 package me.anno.aoc24.day6
 
 import me.anno.utils.Utils.readLines
+import me.anno.utils.Vector2i
 
 data class Step(val ax: Int, val ay: Int, val dir: Int)
 

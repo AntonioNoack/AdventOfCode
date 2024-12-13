@@ -1,6 +1,6 @@
 package me.anno.aoc23.day17
 
-import me.anno.aoc24.day6.Vector2i
+import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 import java.util.*
 

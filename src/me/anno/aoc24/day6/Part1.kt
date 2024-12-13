@@ -1,6 +1,7 @@
 package me.anno.aoc24.day6
 
 import me.anno.utils.Utils.readLines
+import me.anno.utils.Vector2i
 
 // define walking directions
 val directions = listOf(

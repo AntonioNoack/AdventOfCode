@@ -1,6 +1,6 @@
 package me.anno.aoc23.day18
 
-import me.anno.aoc24.day6.Vector2i
+import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 
 enum class Direction(val v: Vector2i) {
