@@ -18,6 +18,10 @@ data class Vector2i(val x: Int, val y: Int) {
         return Vector2i(x / s, y / s)
     }
 
+     fun posMod(o: Vector2i): Vector2i {
+        return Vector2i(Maths.posMod(x , o.x), Maths.posMod(y , o.y))
+    }
+
     fun cross(other: Vector2i): Int {
         return x * other.y - y * other.x
     }
