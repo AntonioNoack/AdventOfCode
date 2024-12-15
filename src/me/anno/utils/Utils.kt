@@ -21,4 +21,23 @@ object Utils {
         }
     }
 
+    fun findPosition(lines: List<String>, searched: Char): Vector2i {
+        for (y in lines.indices) {
+            val line = lines[y]
+            val x = line.indexOf(searched)
+            if (x < 0) continue
+            return Vector2i(x, y)
+        }
+        throw IllegalStateException("Missing '$searched'")
+    }
+
+    fun findPosition1(lines: List<CharArray>, searched: Char): Vector2i {
+        for (y in lines.indices) {
+            val line = lines[y]
+            val x = line.indexOf(searched)
+            if (x < 0) continue
+            return Vector2i(x, y)
+        }
+        throw IllegalStateException("Missing '$searched'")
+    }
 }

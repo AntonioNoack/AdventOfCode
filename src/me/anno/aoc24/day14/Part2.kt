@@ -26,10 +26,10 @@ fun isChristmasTree(robots: List<Robot>, time: Int, spaceSize: Vector2i): Boolea
     // it is a Christmas tree, if many robots have a neighbor
     val minNeighbors = robots.size * 2
     val positions = robots.map { it.getPositionAt(time, spaceSize) }
-    val map = positions.toHashSet()
+    val neighborLookup = positions.toHashSet()
     val numNeighbors = positions.sumOf { pos ->
         directions1.count { dir ->
-            pos + dir in map
+            pos + dir in neighborLookup
         }
     }
     return numNeighbors >= minNeighbors

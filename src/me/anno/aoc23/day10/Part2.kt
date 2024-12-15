@@ -1,5 +1,6 @@
 package me.anno.aoc23.day10
 
+import me.anno.utils.Utils.findPosition
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 import kotlin.math.max
@@ -16,7 +17,7 @@ val sMaskToS = mapOf(
 
 fun main() {
     val field = readLines(23, 10, "data.txt")
-    val start = findS(field)
+    val start = findPosition(field, startSymbol)
     val foundTiles = HashMap<Vector2i, Int>()
     val tracker = object : Tracker {
         override fun nextTile(x: Int, y: Int, dir: Int) {

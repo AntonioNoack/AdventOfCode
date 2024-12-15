@@ -1,16 +1,12 @@
 package me.anno.aoc23.day10
 
+import me.anno.utils.Utils.findPosition
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 
-fun findS(field: List<String>): Vector2i {
-    return field.mapIndexedNotNull { y, line ->
-        val x = line.indexOf('S')
-        if (x >= 0) Vector2i(x, y) else null
-    }.first()
-}
-
 data class PipeTrack(val symbol: Char, val dir: Int)
+
+val startSymbol = 'S'
 
 // up: 0, right: 1, down: 2, left: 3
 val directions = listOf(
@@ -50,7 +46,7 @@ fun trackUntilS(field: List<String>, dir0: Int, start: Vector2i, tracker: Tracke
         }
         val nextPipe = field[py][px]
         tracker?.nextTile(px, py, dir)
-        if (nextPipe == 'S') return numSteps
+        if (nextPipe == startSymbol) return numSteps
         dir = pipes[PipeTrack(nextPipe, dir)] ?: return 0 // found invalid tile
         val dirJ = directions[dir]
         px += dirJ.x
@@ -61,7 +57,7 @@ fun trackUntilS(field: List<String>, dir0: Int, start: Vector2i, tracker: Tracke
 
 fun main() {
     val field = readLines(23, 10, "sample.txt")
-    val start = findS(field)
+    val start = findPosition(field, startSymbol)
     for (i in 0 until 4) {
         val length = trackUntilS(field, i, start, null)
         if (length > 0) {

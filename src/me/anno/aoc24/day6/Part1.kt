@@ -13,13 +13,7 @@ val directions = listOf(
 
 val obstacle = '#'
 val empty = '.'
-
-fun findAgentPosition(lines: List<String>): Vector2i {
-    return lines.mapIndexed { y, line ->
-        val x = line.indexOf('^')
-        if (x >= 0) Vector2i(x, y) else null
-    }.first { it != null }!!
-}
+val agent = '^'
 
 fun nextDir(dir: Int): Int {
     return (dir + 1) % directions.size
