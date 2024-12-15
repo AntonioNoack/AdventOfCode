@@ -1,5 +1,6 @@
 package me.anno.aoc24.day7
 
+import me.anno.utils.Maths.hasFlag
 import me.anno.utils.Utils.readLines
 
 class Task(val result: Long, val parts: List<Long>)
@@ -11,10 +12,6 @@ fun parseTask(line: String): Task? {
     val parts = line.substring(colonIndex + 2)
         .split(' ').map { it.toLong() }
     return Task(result, parts)
-}
-
-fun Int.hasFlag(flag: Int): Boolean {
-    return this.and(flag) == flag
 }
 
 fun maskSolvesTask(task: Task, mask: Int): Boolean {

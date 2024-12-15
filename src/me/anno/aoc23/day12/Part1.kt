@@ -1,6 +1,6 @@
 package me.anno.aoc23.day12
 
-import me.anno.aoc24.day7.hasFlag
+import me.anno.utils.Maths.hasFlag
 import me.anno.utils.Utils.readLines
 
 val working = '.'

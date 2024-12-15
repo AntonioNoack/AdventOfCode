@@ -5,4 +5,12 @@ object Maths {
         val r = a % b
         return if (r < 0) r + b else r
     }
+
+    fun Int.hasFlag(flag: Int): Boolean {
+        return this.and(flag) == flag
+    }
+
+    fun Long.hasFlag(flag: Long): Boolean {
+        return this.and(flag) == flag
+    }
 }
