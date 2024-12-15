@@ -1,5 +1,6 @@
 package me.anno.utils
 
+import java.io.File
 import java.io.InputStream
 
 object Utils {
@@ -40,4 +41,7 @@ object Utils {
         }
         throw IllegalStateException("Missing '$searched'")
     }
+
+    val user = File(System.getProperty("user.home"))
+    val desktop = File(user, "Desktop")
 }
