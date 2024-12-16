@@ -15,7 +15,7 @@ class ObjWriter(mtlName: String) {
 
     init {
         obj.append("# AdventOfCode\n")
-            .append("usemtl ").append(mtlName).append("\n\n")
+            .append("mtllib ").append(mtlName).append("\n\n")
     }
 
     val one = Vector3i(1, 1, 1)

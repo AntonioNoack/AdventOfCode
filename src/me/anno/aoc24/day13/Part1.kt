@@ -55,6 +55,9 @@ fun solveMachine(machine: ClawMachine): Vector2i? {
         machine.buttonA.x, machine.buttonB.x,
         machine.buttonA.y, machine.buttonB.y
     ).inverted()
+    if (divisor == 0) {
+        return null
+    }
     val inv = m.transform(machine.price)
     if (inv.x % divisor != 0 || inv.y % divisor != 0) {
         // not solvable
