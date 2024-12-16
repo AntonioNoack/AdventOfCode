@@ -42,6 +42,14 @@ object Utils {
         throw IllegalStateException("Missing '$searched'")
     }
 
+    // up: 0, right: 1, down: 2, left: 3
+    val directions = listOf(
+        Vector2i(0, -1),
+        Vector2i(1, 0),
+        Vector2i(0, 1),
+        Vector2i(-1, 0)
+    )
+
     val user = File(System.getProperty("user.home"))
     val desktop = File(user, "Desktop")
 }

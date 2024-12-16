@@ -1,5 +1,6 @@
 package me.anno.aoc24.day12
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 
@@ -15,13 +16,6 @@ data class Plot(val symbol: Char, var area: Int, var perimeter: Int) {
         return "['$symbol', $area², $perimeter]"
     }
 }
-
-val directions = listOf(
-    Vector2i(0, 1),
-    Vector2i(1, 0),
-    Vector2i(0, -1),
-    Vector2i(-1, 0),
-)
 
 fun price(plot: Plot): Int {
     return plot.area * plot.perimeter

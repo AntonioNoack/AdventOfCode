@@ -1,15 +1,8 @@
 package me.anno.aoc24.day6
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Utils.readLines
 import me.anno.utils.Vector2i
-
-// define walking directions
-val directions = listOf(
-    0 to -1,
-    1 to 0,
-    0 to 1,
-    -1 to 0,
-)
 
 val obstacle = '#'
 val empty = '.'
@@ -34,8 +27,8 @@ fun walkGuard(field: Field, watcher: Watcher): Boolean {
     // while agent is still inside field, move around
     walking@ while (true) {
         val dirI = directions[dir]
-        val nx = ax + dirI.first
-        val ny = ay + dirI.second
+        val nx = ax + dirI.x
+        val ny = ay + dirI.y
         if (nx !in 0 until field.sx || ny !in 0 until field.sy) {
             // done, agent left field
             return true

@@ -1,5 +1,6 @@
 package me.anno.aoc24.day10
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 
@@ -17,13 +18,6 @@ fun main() {
     }.sum()
     println(totalScore)
 }
-
-val directions = listOf(
-    Vector2i(0, 1),
-    Vector2i(1, 0),
-    Vector2i(0, -1),
-    Vector2i(-1, 0),
-)
 
 fun calculateScore(field: List<String>, trailHead: Vector2i): Int {
     var nextStep = start

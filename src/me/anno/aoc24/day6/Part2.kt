@@ -1,5 +1,6 @@
 package me.anno.aoc24.day6
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Utils.readLines
 import me.anno.utils.Vector2i
 
@@ -8,8 +9,8 @@ data class Step(val ax: Int, val ay: Int, val dir: Int)
 fun getObstaclePosition(field: Field, step: Step): Vector2i? {
     // if the obstacle is < stepIdx, return false
     val obstacleDir = directions[step.dir]
-    val ox = step.ax + obstacleDir.first
-    val oy = step.ay + obstacleDir.second
+    val ox = step.ax + obstacleDir.x
+    val oy = step.ay + obstacleDir.y
     return if (ox in 0 until field.sx && oy in 0 until field.sy) {
         Vector2i(ox, oy)
     } else null

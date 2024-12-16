@@ -1,5 +1,6 @@
 package me.anno.aoc23.day16
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 
@@ -52,13 +53,6 @@ data class Ray(val position: Vector2i, val dir: Int) {
     }
 
 }
-
-val directions = listOf(
-    Vector2i(0, -1),
-    Vector2i(1, 0),
-    Vector2i(0, 1),
-    Vector2i(-1, 0)
-)
 
 fun numEnergizedTiles(startRay: Ray, field: List<String>): Int {
     val remaining = ArrayList<Ray>()

@@ -1,5 +1,6 @@
 package me.anno.aoc23.day10
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Utils.findPosition
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
@@ -7,14 +8,6 @@ import me.anno.utils.Utils.readLines
 data class PipeTrack(val symbol: Char, val dir: Int)
 
 val startSymbol = 'S'
-
-// up: 0, right: 1, down: 2, left: 3
-val directions = listOf(
-    Vector2i(0, -1),
-    Vector2i(1, 0),
-    Vector2i(0, 1),
-    Vector2i(-1, 0)
-)
 
 val pipes = mapOf(
     PipeTrack('-', 1) to 1,

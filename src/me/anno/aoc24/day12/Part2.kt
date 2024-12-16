@@ -1,5 +1,6 @@
 package me.anno.aoc24.day12
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 

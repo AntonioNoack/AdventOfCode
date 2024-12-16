@@ -1,6 +1,6 @@
 package me.anno.aoc24.day14
 
-import me.anno.aoc23.day10.directions
+import me.anno.utils.Utils.directions
 import me.anno.utils.Utils.readLines
 import me.anno.utils.Vector2i
 
@@ -20,15 +20,13 @@ fun main() {
     }
 }
 
-val directions1 = directions
-
 fun isChristmasTree(robots: List<Robot>, time: Int, spaceSize: Vector2i): Boolean {
     // it is a Christmas tree, if many robots have a neighbor
     val minNeighbors = robots.size * 2
     val positions = robots.map { it.getPositionAt(time, spaceSize) }
     val neighborLookup = positions.toHashSet()
     val numNeighbors = positions.sumOf { pos ->
-        directions1.count { dir ->
+        directions.count { dir ->
             pos + dir in neighborLookup
         }
     }

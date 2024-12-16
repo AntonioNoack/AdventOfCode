@@ -1,5 +1,6 @@
 package me.anno.aoc23.day17
 
+import me.anno.utils.Utils.directions
 import me.anno.utils.Vector2i
 import me.anno.utils.Utils.readLines
 import java.util.*
@@ -30,13 +31,6 @@ fun isOpposite(a: Int, b: Int): Boolean {
     val diff = (a - b).and(3)
     return diff == 2
 }
-
-val directions = listOf(
-    Vector2i(0, -1),
-    Vector2i(1, 0),
-    Vector2i(0, 1),
-    Vector2i(-1, 0)
-)
 
 fun shortestPath(start: Vector2i, end: Vector2i, field: List<String>): Path {
 
