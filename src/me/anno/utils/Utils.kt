@@ -42,6 +42,10 @@ object Utils {
         throw IllegalStateException("Missing '$searched'")
     }
 
+    fun getFieldSizeI(field: List<IntArray>): Vector2i {
+        return Vector2i(field[0].size, field.size)
+    }
+
     // up: 0, right: 1, down: 2, left: 3
     val directions = listOf(
         Vector2i(0, -1),
