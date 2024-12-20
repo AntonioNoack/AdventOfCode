@@ -46,6 +46,21 @@ object Utils {
         return Vector2i(field[0].size, field.size)
     }
 
+    fun <V> List<V>.split(splitting: V): List<List<V>> {
+        val result = ArrayList<List<V>>()
+        var tmp = ArrayList<V>()
+        for (vi in this) {
+            if (splitting == vi) {
+                result.add(tmp)
+                tmp = ArrayList()
+            } else {
+                tmp.add(vi)
+            }
+        }
+        result.add(tmp)
+        return result
+    }
+
     // up: 0, right: 1, down: 2, left: 3
     val directions = listOf(
         Vector2i(0, -1),
