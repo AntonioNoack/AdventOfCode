@@ -1,6 +1,8 @@
 package me.anno.utils
 
-data class Vector2i(val x: Int, val y: Int) {
+import kotlin.math.abs
+
+data class Vector2i(var x: Int, var y: Int) {
 
     operator fun plus(other: Vector2i): Vector2i {
         return Vector2i(x + other.x, y + other.y)
@@ -18,8 +20,8 @@ data class Vector2i(val x: Int, val y: Int) {
         return Vector2i(x / s, y / s)
     }
 
-     fun posMod(o: Vector2i): Vector2i {
-        return Vector2i(Maths.posMod(x , o.x), Maths.posMod(y , o.y))
+    fun posMod(o: Vector2i): Vector2i {
+        return Vector2i(Maths.posMod(x, o.x), Maths.posMod(y, o.y))
     }
 
     fun cross(other: Vector2i): Int {
@@ -32,6 +34,10 @@ data class Vector2i(val x: Int, val y: Int) {
 
     fun dot(other: Vector2i): Int {
         return x * other.x + y * other.y
+    }
+
+    fun manhattanDistance(other: Vector2i): Int {
+        return abs(x - other.x) + abs(y - other.y)
     }
 
     override fun toString(): String {
