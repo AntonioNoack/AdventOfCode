@@ -91,9 +91,9 @@ fun error(a: Hail, b: Hail): BigDecimal {
 }
 
 fun getT(p: Vector3dx, v: Vector3dx): BigDecimal {
-    val ax = abs(v.x)
-    val ay = abs(v.y)
-    val az = abs(v.z)
+    val ax = absi(v.x)
+    val ay = absi(v.y)
+    val az = absi(v.z)
     val max = max(max(ax, ay), az)
     return when (max) {
         ax -> p.x / v.x
@@ -102,7 +102,7 @@ fun getT(p: Vector3dx, v: Vector3dx): BigDecimal {
     }
 }
 
-fun abs(a: BigDecimal): BigDecimal {
+fun absi(a: BigDecimal): BigDecimal {
     return a.abs()
 }
 

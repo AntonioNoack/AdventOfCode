@@ -1,6 +1,8 @@
 package me.anno.utils
 
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 data class Vector2i(var x: Int, var y: Int) {
 
@@ -38,6 +40,14 @@ data class Vector2i(var x: Int, var y: Int) {
 
     fun manhattanDistance(other: Vector2i): Int {
         return abs(x - other.x) + abs(y - other.y)
+    }
+
+    fun max(o: Vector2i): Vector2i {
+        return Vector2i(max(x, o.x), max(y, o.y))
+    }
+
+    fun min(o: Vector2i): Vector2i {
+        return Vector2i(min(x, o.x), min(y, o.y))
     }
 
     override fun toString(): String {
