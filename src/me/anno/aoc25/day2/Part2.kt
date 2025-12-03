@@ -30,7 +30,7 @@ fun multiplier(base: Int, repeats: Int): Long {
     repeat(repeats) { n ->
         result += base.pow(n)
     }
-    println("$base x $repeats -> $result")
+    // println("$base x $repeats -> $result")
     return result
 }
 
@@ -75,10 +75,10 @@ fun sumInvalidIdsNx(range: LongRange): Long {
         val j7 = nextInvalidId7x(i)
         val j = min(min(j2, j3), min(j5, j7))
         if (j > range.last) {
-            println("// $range[$i] -> $j")
+            // println("// $range[$i] -> $j")
             return sum
         }
-        println("$range[$i] -> $j")
+        // println("$range[$i] -> $j")
         sum += j
         i = j + 1
     }
