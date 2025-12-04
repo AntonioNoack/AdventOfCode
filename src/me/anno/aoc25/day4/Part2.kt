@@ -12,7 +12,7 @@ fun canRemoveRoll(grid: List<CharSequence>, x: Int, y: Int): Boolean {
             neighbors.count { neighbor -> isSymbol(grid, x + neighbor.x, y + neighbor.y, toiletPaper) } < 4
 }
 
-val removed = 'x'
+private const val removed = 'x'
 
 fun main() {
 
@@ -20,7 +20,7 @@ fun main() {
     val runs = 1000
 
     val t0 = System.nanoTime()
-    repeat(runs) {
+    repeat(runs) { runId ->
         val grid = lines0.map { line ->
             StringBuilder(line) // make line mutable
         }
@@ -28,42 +28,33 @@ fun main() {
         val sx = grid[0].length
         val sy = grid.size
 
-        val stack = IntArray(sx * sy)
-        var stackSize = 0
+        var numRemovedRolls = 0
 
-        // forklifts can access all fields from the get-go
-        var count = 0
-        for (x in 0 until sx) {
-            for (y in 0 until sy) {
-                if (canRemoveRoll(grid, x, y)) {
-                    grid[y][x] = removed
-                    count++
-                    stack[stackSize++] = x
-                    stack[stackSize++] = y
-                }
-            }
-        }
+        fun removeRoll(x: Int, y: Int) {
 
-        while (stackSize > 0) {
-            stackSize -= 2
-            val x = stack[stackSize]
-            val y = stack[stackSize + 1]
+            grid[y][x] = removed
+            numRemovedRolls++
 
             for (n in neighbors) {
                 val nx = x + n.x
                 val ny = y + n.y
                 if (canRemoveRoll(grid, nx, ny)) {
-                    grid[ny][nx] = removed
-                    count++
-
-                    stack[stackSize++] = nx
-                    stack[stackSize++] = ny
+                    removeRoll(nx, ny)
                 }
             }
         }
 
-        if (it == 0) {
-            println("Count: $count")
+        // forklifts can access all fields from the get-go
+        for (x in 0 until sx) {
+            for (y in 0 until sy) {
+                if (canRemoveRoll(grid, x, y)) {
+                    removeRoll(x, y)
+                }
+            }
+        }
+
+        if (runId == 0) {
+            println("Count: $numRemovedRolls")
         }
     }
 
