@@ -12,44 +12,65 @@ fun canRemoveRoll(grid: List<CharSequence>, x: Int, y: Int): Boolean {
             neighbors.count { neighbor -> isSymbol(grid, x + neighbor.x, y + neighbor.y, toiletPaper) } < 4
 }
 
+val removed = 'x'
+
 fun main() {
-    val grid = readLines(25, 4, "data.txt").map {
-        StringBuilder(it) // make line mutable
-    }
+
+    val lines0 = readLines(25, 4, "data.txt")
+    val runs = 1000
 
     val t0 = System.nanoTime()
-    val sx = grid[0].length
-    val sy = grid.size
+    repeat(runs) {
+        val grid = lines0.map { line ->
+            StringBuilder(line) // make line mutable
+        }
 
-    val stack = IntArray(1024)
-    var stackSize = 0
+        val sx = grid[0].length
+        val sy = grid.size
 
-    var removedRolls = 0
-    fun removeRollsRecursively(x: Int, y: Int) {
-        removedRolls++
-        grid[y][x] = 'x'
+        val stack = IntArray(sx * sy)
+        var stackSize = 0
 
-        // invalidate all neighbors
-        for (n in neighbors) {
-            val nx = x + n.x
-            val ny = y + n.y
-            if (canRemoveRoll(grid, nx, ny)) {
-                removeRollsRecursively(nx, ny)
+        // forklifts can access all fields from the get-go
+        var count = 0
+        for (x in 0 until sx) {
+            for (y in 0 until sy) {
+                if (canRemoveRoll(grid, x, y)) {
+                    grid[y][x] = removed
+                    count++
+                    stack[stackSize++] = x
+                    stack[stackSize++] = y
+                }
             }
         }
-    }
 
-    // forklifts can access all fields from the get-go
-    for (x in 0 until sx) {
-        for (y in 0 until sy) {
-            if (canRemoveRoll(grid, x, y)) {
-                removeRollsRecursively(x, y)
+        while (stackSize > 0) {
+            stackSize -= 2
+            val x = stack[stackSize]
+            val y = stack[stackSize + 1]
+
+            for (n in neighbors) {
+                val nx = x + n.x
+                val ny = y + n.y
+                if (canRemoveRoll(grid, nx, ny)) {
+                    grid[ny][nx] = removed
+                    count++
+
+                    stack[stackSize++] = nx
+                    stack[stackSize++] = ny
+                }
             }
+        }
+
+        if (it == 0) {
+            println("Count: $count")
         }
     }
 
     // start: 24 ms,
-    // now: 10 ms (by removing objects and manual stack)
+    // now: 9.4 ms (by removing objects and manual stack)
+    // and with 1000 runs now 1.1 ms/run :)
     val t1 = System.nanoTime()
-    println("Count: $removedRolls, took ${(t1 - t0) / 1e6f} ms")
+    println("Took ${(t1 - t0) / (runs * 1e6f)} ms/run")
+
 }
