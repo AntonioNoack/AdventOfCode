@@ -13,7 +13,8 @@ fun main() {
 
     var sum = 0
 
-    for ((taskId0, task) in tasks.withIndex()) {
+    val file = File("./data/aoc25/day10/model.mod")
+    for (task in tasks) {
 
         val numButtons = task.buttonToLight.size
         val numLights = task.requirements.size
@@ -29,9 +30,9 @@ ${
 ${
             (0 until numLights).joinToString("\n") { taskId ->
                 val requirement = task.requirements[taskId]
-                val buttons = task.buttonToLight.withIndex().filter { (buttonId, taskIds) ->
-                    taskId in taskIds
-                }.map { (buttonId, _) -> buttonId }
+                val buttons = task.buttonToLight.withIndex()
+                    .filter { (_, taskIds) -> taskId in taskIds }
+                    .map { (buttonId, _) -> buttonId }
                 "s.t. Eq$taskId: ${buttons.joinToString(" + ") { "x$it" }} = $requirement;"
             }
         }
@@ -40,11 +41,10 @@ minimize obj: ${(0 until numButtons).joinToString(" + ") { "x$it" }};
 
 solve;
 display ${(0 until numButtons).joinToString(", ") { "x$it" }};
-
+end;
     """.trimIndent()
 
         println(recipe)
-        val file = File("./data/aoc25/day10/model$taskId0.mod")
         file.writeText(recipe)
         val process = ProcessBuilder("glpsol", "-m", file.absolutePath)
             .start()
@@ -54,11 +54,11 @@ display ${(0 until numButtons).joinToString(", ") { "x$it" }};
         while (true) {
             val line = reader.readLine() ?: break
             println(line)
-            val midfix = ".val = "
-            val k = line.indexOf(midfix)
+            val pattern = ".val = "
+            val k = line.indexOf(pattern)
             if (k >= 0) {
                 val index = line.substring(1, k).toInt()
-                solution[index] = line.substring(k + midfix.length).toInt()
+                solution[index] = line.substring(k + pattern.length).toInt()
             }
         }
         check(solution.all { it >= 0 })
@@ -66,5 +66,6 @@ display ${(0 until numButtons).joinToString(", ") { "x$it" }};
         println("Best: $best")
         sum += best
     }
+    file.delete()
     println("Total: $sum")
 }
