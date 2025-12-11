@@ -50,7 +50,7 @@ class Graph(lines: List<String>) {
         }
 
         val no = nodeInputs[output]
-            ?: throw IllegalStateException("No node is reaching $output")
+            ?: throw IllegalStateException("No node is reaching $output") // I loaded sample instead of sample2 for part2 😅
         val out = no.sumOf { reached[it] ?: 0L }
         println("[${input} -> $output] = $out")
         return out
