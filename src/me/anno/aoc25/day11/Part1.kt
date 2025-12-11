@@ -3,32 +3,36 @@ package me.anno.aoc25.day11
 import me.anno.utils.Utils.readLines
 
 class Graph(lines: List<String>) {
+
     val nodeOutputs = lines
-        .associate {
-            val i = it.indexOf(": ")
-            println(it.substring(i + 1).split(' '))
-            it.substring(0, i) to it.substring(i + 1).trim().split(' ').map { node ->
+        .associate { line ->
+            val i = line.indexOf(": ")
+            val input = line.substring(0, i)
+            val outputs = line.substring(i + 2).split(' ').map { node ->
                 check(node.trim() == node)
                 check(node.isNotEmpty())
                 node
             }
+            input to outputs
         }
-    val nodes = HashSet(nodeOutputs.keys)
+
     val connections: List<Pair<String, String>> =
         nodeOutputs.entries.flatMap { (node, outputs) -> outputs.map { output -> node to output } }
+
     val nodeInputs: Map<String, List<String>> = connections
         .groupBy { it.second }
         .map { (output, connections) ->
             output to connections.map { (input, _) -> input }
         }.toMap()
 
+    val nodes = nodeInputs.keys + nodeOutputs.keys
+
     init {
         println("nodes: $nodes")
         println("inputs: $nodeInputs")
     }
 
-    fun countPaths(input: String, output: String, ignored: String? = null): Long {
-
+    fun countUniquePaths(input: String, output: String): Long {
         val reached = HashMap<String, Long>()
         reached[input] = 1L
         println("[$input] = 1")
@@ -40,7 +44,7 @@ class Graph(lines: List<String>) {
             // find a node, which is only output of the checked nodes
             val node = remaining.firstOrNull { node ->
                 (nodeInputs[node] ?: emptyList())
-                    .all { input -> input in reached || input == ignored }
+                    .all { input -> input in reached }
             } ?: break
             check(remaining.remove(node))
             val inputs = nodeInputs[node] ?: emptyList()
@@ -60,5 +64,5 @@ class Graph(lines: List<String>) {
 fun main() {
     // count how many times each node is reached
     Graph(readLines(25, 11, "data.txt"))
-        .countPaths("you", "out")
+        .countUniquePaths("you", "out")
 }

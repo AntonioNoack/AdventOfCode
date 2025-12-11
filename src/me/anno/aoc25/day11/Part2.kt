@@ -21,12 +21,12 @@ fun main() {
     val n2 = "fft"
     val n3 = "out"
 
-    val p01 = graph.countPaths(n0, n1)
-    val p02 = graph.countPaths(n0, n2)
-    val p12 = graph.countPaths(n1, n2)
-    val p21 = graph.countPaths(n2, n1)
-    val p23 = graph.countPaths(n2, n3)
-    val p13 = graph.countPaths(n1, n3)
+    val p01 = graph.countUniquePaths(n0, n1)
+    val p02 = graph.countUniquePaths(n0, n2)
+    val p12 = graph.countUniquePaths(n1, n2)
+    val p21 = graph.countUniquePaths(n2, n1)
+    val p23 = graph.countUniquePaths(n2, n3)
+    val p13 = graph.countUniquePaths(n1, n3)
 
     val totalDacFft = p01 * p12 * p23
     val totalFftDac = p02 * p21 * p13
