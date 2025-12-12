@@ -4,27 +4,22 @@ import me.anno.utils.Utils.readLines
 
 // this tasks seems impossible...
 
-fun main() {
-
-    class Task(val width: Int, val height: Int, val requirements: IntArray) {
-        override fun toString(): String {
-            return "$width x $height, ${requirements.toList()}"
-        }
+class Task(val width: Int, val height: Int, val requirements: IntArray) {
+    override fun toString(): String {
+        return "$width x $height, ${requirements.toList()}"
     }
+}
 
+class Problem(lines: List<String>) {
     // parse data
-    val lines = readLines(25, 12, "data.txt")
     val shapes = List(6) { i ->
         val i0 = i * 5
         listOf(
             lines[i0 + 1],
             lines[i0 + 2],
             lines[i0 + 3],
-        )
-    }
-    for (shape in shapes) {
-        for (line in shape) {
-            check(line.length == 3)
+        ).apply {
+            forEach { check(it.length == 3) }
         }
     }
     val tasks = lines.subList(30, lines.size)
@@ -37,6 +32,12 @@ fun main() {
             check(requirements.size == 6)
             Task(w, h, requirements.toIntArray())
         }
+}
+
+fun main() {
+    val problem = Problem(readLines(25, 12, "data.txt"))
+    val shapes = problem.shapes
+    val tasks = problem.tasks
     val minAmountFilled = shapes.minOf {
         it.sumOf { it.count { it == '#' } }
     }
