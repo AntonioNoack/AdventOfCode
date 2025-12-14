@@ -5,28 +5,28 @@ import java.util.*
 
 fun sq(x: Int): Long = x.toLong() * x.toLong()
 
-data class Box(val x: Int, val y: Int, val z: Int, val asString: String) {
+data class Box(val x: Int, val y: Int, val z: Int, val id: Int) {
     var circuit = HashSet<Box>().apply { add(this@Box) } // reference to a set of boxes
 
-    override fun toString(): String = asString
+    override fun toString(): String = "($x,$y,$z)"
 }
 
 data class BoxPair(val min: Box, val max: Box) {
     val distance = sq(min.x - max.x) + sq(min.y - max.y) + sq(min.z - max.z)
 }
 
-fun String.parseBox(): Box {
+fun String.parseBox(id: Int): Box {
     val (x, y, z) = this
         .split(',')
         .map { it.toInt() }
-    return Box(x, y, z, this)
+    return Box(x, y, z, id)
 }
 
-fun createConnectionQueue(boxes: List<Box>): Queue<BoxPair> {
-    val options = boxes.indices.flatMap { x ->
-        boxes.indices
+fun  List<Box>.findShortestConnectionsExact(): Queue<BoxPair> {
+    val options = indices.flatMap { x ->
+        indices
             .filter { y -> y > x }
-            .map { y -> BoxPair(boxes[x], boxes[y]) }
+            .map { y -> BoxPair(this[x], this[y]) }
     }
     val queue = PriorityQueue<BoxPair>(options.size, compareBy { it.distance })
     queue.addAll(options)
@@ -42,11 +42,13 @@ fun mergeCircuits(min: Box, max: Box): Boolean {
     return true
 }
 
+fun List<String>.parseBoxes() =
+    mapIndexed { index, line -> line.parseBox(index) }
+
 fun main() {
     val file = "data.txt"
-    val boxes = readLines(25, 8, file)
-        .map { it.parseBox() }
-    val queue = createConnectionQueue(boxes)
+    val boxes = readLines(25, 8, file).parseBoxes()
+    val queue = boxes.findShortestConnectionsExact()
     repeat(if (file == "data.txt") 1000 else 10) {
         val pair = queue.poll()!!
         mergeCircuits(pair.min, pair.max)
