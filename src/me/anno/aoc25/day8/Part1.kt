@@ -22,10 +22,9 @@ fun String.parseBox(id: Int): Box {
     return Box(x, y, z, id)
 }
 
-fun  List<Box>.findShortestConnectionsExact(): Queue<BoxPair> {
-    val options = indices.flatMap { x ->
-        indices
-            .filter { y -> y > x }
+fun List<Box>.findShortestConnectionsExact(): Queue<BoxPair> {
+    val options = (0 until size - 1).flatMap { x ->
+        (x + 1 until size)
             .map { y -> BoxPair(this[x], this[y]) }
     }
     val queue = PriorityQueue<BoxPair>(options.size, compareBy { it.distance })
